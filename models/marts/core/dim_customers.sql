@@ -1,9 +1,6 @@
 /*
-    This is my first model using CTEs from raw data
+    This is my first dimension model using CTEs from staging models
 */
-{{ config(
-    materialized="table"
-)}}
 
 WITH customers AS (
     SELECT * FROM {{ ref('stg_customers')}}
