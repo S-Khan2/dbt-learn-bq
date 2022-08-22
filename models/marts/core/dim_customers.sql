@@ -20,6 +20,14 @@ customer_orders AS (
     GROUP BY 1
 ),
 
+customer_values AS (
+    SELECT 
+        customer_id,
+        SUM(amount) AS lifetime_value
+    FROM {{ ref('fct_orders') }}
+    GROUP BY 1
+),
+
 final AS (
     SELECT
         customers.customer_id,
@@ -27,9 +35,11 @@ final AS (
         customers.last_name,
         customer_orders.first_order_date,
         customer_orders.most_recent_order_date,
-        COALESCE(customer_orders.number_of_orders, 0) AS number_of_orders
+        COALESCE(customer_orders.number_of_orders, 0) AS number_of_orders,
+        COALESCE(customer_values.lifetime_value, 0) AS lifetime_value
     FROM customers
     LEFT JOIN customer_orders USING (customer_id)
+    LEFT JOIN customer_values USING (customer_id)
 )
 
 SELECT * FROM final
