@@ -3,11 +3,11 @@
 */
 
 WITH customers AS (
-    SELECT * FROM {{ ref('stg_customers')}}
+    SELECT * FROM {{ ref('stg_customers') }}
 ),
 
 orders AS (
-    SELECT * FROM {{ ref('stg_orders')}}
+    SELECT * FROM {{ ref('stg_orders') }}
 ),
 
 customer_orders AS (
