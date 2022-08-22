@@ -6,7 +6,7 @@ WITH payments AS (
         status,
         amount/100 AS amount,
         created
-    FROM stripe.payment
+    FROM {{ source('stripe', 'payment') }}
 )
 
 SELECT * FROM payments
