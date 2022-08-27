@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: stg_payments
+    description: Each row contains info regarding each payment
+    columns:
+      - name: payment_id
+        description: Primary key of stg_payments
+        tests:
+          - not_null
+          - unique
+      - name: order_id
+        description: Foreign key of order associated with the payment
+        tests:
+          - relationships:
+              to: ref('stg_orders')
+              field: order_id
+      - name: payment_method
+        description: Customer's method of payment
+      - name: status
+        description: "{{ doc('payment_status') }}"
+        tests:
+          - accepted_values:
+              values:
+                - success
+                - fail
+      - name: amount
+        description: Amount (to be) paid in Australian Dollars 
+      - name: created
+        description: Date when payment was attempted
