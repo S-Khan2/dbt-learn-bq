@@ -1,8 +1,10 @@
 version: 2
+# dbt database = BigQuery project
+# dbt schema = BigQuery dataset
 
 sources:
     - name: jaffle_shop
-      database: dbt-bq-360016
+      database: dbt-bq-360016 
       schema: jaffle_shop
       tables:
         - name: customers
